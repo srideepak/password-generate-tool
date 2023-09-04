@@ -1,0 +1,54 @@
+from tkinter import *
+import random, string
+
+def selection():
+    global selection
+    selection = choice.get()
+
+    
+root = Tk()
+root.geometry("500x300")
+root.title("Password Generator Tool")
+title = StringVar()
+label = Label(root, textvariable=title).pack()
+title.set("Select the strength of the password:")
+
+
+
+choice = IntVar()
+R1 = Radiobutton(root, text="Low", variable=choice, value=1,
+command=selection).pack(anchor=CENTER)
+R2 = Radiobutton(root, text="Medium", variable=choice, value=2,
+command=selection).pack(anchor=CENTER)
+R3 = Radiobutton(root, text="High", variable=choice, value=3,
+command=selection).pack(anchor=CENTER)
+labelchoice = Label(root)
+labelchoice.pack()
+lenlabel = StringVar()
+lenlabel.set(" Enter a Password length:")
+lentitle = Label(root, textvariable=lenlabel).pack()
+val = IntVar()
+spinlenght = Spinbox(root, from_=4, to_=30, textvariable=val,
+width=5).pack()
+def callback():
+    lsum.config(text=passgen())
+
+
+passgenButton = Button(root, text="GENERATE", bd=9,
+height=1, command=callback, pady=1, bg='#0059b3')
+passgenButton.pack()
+password = str(callback)
+lsum = Label(root, text="")
+lsum.pack(side=BOTTOM)
+poor= string.ascii_uppercase + string.ascii_lowercase
+average= string.ascii_uppercase + string.ascii_lowercase + string.digits
+symbols = """@.,.,"""
+advance = poor+ average + symbols
+def passgen():
+    if choice.get() == 1:
+     return "".join(random.sample(poor, val.get()))
+    elif choice.get() == 2:
+     return "".join(random.sample(average, val.get()))
+    elif choice.get() == 3:
+     return "".join(random.sample(advance, val.get()))
+root.mainloop()
